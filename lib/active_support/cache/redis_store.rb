@@ -148,7 +148,8 @@ module ActiveSupport
       def increment(key, amount = 1)
         options = merged_options(nil)
         instrument(:increment, key, :amount => amount) do
-          with{|c| c.incrby namespaced_key(key,options), amount}
+          key = namespaced_key(key,options)
+          with{|c| c.incrby key, amount}
         end
       end
 
@@ -176,7 +177,8 @@ module ActiveSupport
       def decrement(key, amount = 1)
         options = merged_options(nil)
         instrument(:decrement, key, :amount => amount) do
-          with{|c| c.decrby namespaced_key(key, options), amount}
+          key = namespaced_key(key,options)
+          with{|c| c.decrby key, amount}
         end
       end
 
